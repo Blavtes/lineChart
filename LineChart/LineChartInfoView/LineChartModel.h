@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "LCLineChartView.h"
 
-@interface ZCLineChart : NSObject
+@interface LineChartModel : NSObject
 
 /**
  *

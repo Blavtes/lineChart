@@ -1,20 +1,30 @@
 //
 //  ViewController.m
-//  LineChart
+//  
 //
 //  Created by yong on 16/3/30.
 //  Copyright © 2016年 yong. All rights reserved.
 //
 
-#import "ViewController.h"
-#import "ZCLineChart.h"
+#import "CurrentTreasureViewController.h"
+#import "LineChartModel.h"
 #import "LineChart.h"
 
-@interface ViewController ()
+static CGFloat const kAssetInfoViewHeight = 190.0f;
+
+@interface CurrentTreasureViewController ()
+@property (strong, nonatomic) UIView *topView;
+@property (strong, nonatomic) UILabel *lastDayEarnings;//昨日收益
+@property (strong, nonatomic) UILabel *totalMoney;//总金额
+@property (strong, nonatomic) UILabel *tenThousandAccrual;//万份收益
+@property (strong, nonatomic) UILabel *accumulatedEarnings; //累计收益
+@property (strong, nonatomic) UIButton *detailedIntroductionBtn;//详细按钮
+@property (strong, nonatomic) UIButton *ExpectBtn;//敬请期待
+@property (strong, nonatomic) LCLineChartView *lineChartView;
 
 @end
 
-@implementation ViewController
+@implementation CurrentTreasureViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -67,15 +77,24 @@
     NSDate * oldData = [senddate dateByAddingTimeInterval:-timeStart];
     NSString * startDate = [dateformatter stringFromDate:oldData];
     
-    NSTimeInterval timeEnd = 24 * 3600 ;
+    NSTimeInterval timeEnd = 24 * 3600 *2;
     
     NSDate * lastData = [senddate dateByAddingTimeInterval:-timeEnd];
     NSString * endDate = [dateformatter stringFromDate:lastData];
     
-    NSLog(@"locationString:%@  start %@  end %@",locationString,startDate,endDate);
-    LCLineChartView* chartView = [ZCLineChart drawChartViewBeginTime:startDate EndTime:endDate Rect:CGRectMake(25, 60, self.view.frame.size.width - 50, 200) Unit:@"%" XArray:xArray YArray:yArray];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 176 , self.view.frame.size.width, 236)];
     
-    [self.view addSubview:chartView];
+    view.backgroundColor = [UIColor redColor];
+    [self.view addSubview:view];
+    
+    NSLog(@"locationString:%@  start %@  end %@ %f",locationString,startDate,endDate,self.view.frame.size.width);
+    LCLineChartView* chartView = [LineChartModel drawChartViewBeginTime:startDate EndTime:endDate Rect:CGRectMake(0, 0 , self.view.frame.size.width, view.frame.size.height) Unit:@"%" XArray:xArray YArray:yArray];
+    chartView.selectedItemCallback = ^(LCLineChartData * data, NSUInteger item, CGPoint positionInChart){
+        NSLog(@".....");
+    };
+    [view addSubview:chartView];
+    chartView.backgroundColor = [UIColor grayColor];
+    self.view.backgroundColor = [UIColor darkGrayColor];
 }
 
 - (void)didReceiveMemoryWarning {

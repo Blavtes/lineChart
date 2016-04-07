@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "CurrentTreasureViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,8 +22,10 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    ViewController* controller = [[ViewController alloc] init];
-    self.window.rootViewController = controller;
+    CurrentTreasureViewController* controller = [[CurrentTreasureViewController alloc] init];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:controller];
+    
+    [self.window setRootViewController:nc];
     [self.window makeKeyAndVisible];
 
     return YES;

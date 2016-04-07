@@ -6,13 +6,13 @@
 //  Copyright © 2016年 yong. All rights reserved.
 //
 
-#import "ZCLineChart.h"
-#import "UIColor+Random.h"
+#import "LineChartModel.h"
+
 #import "LineChart.h"
 
 
 
-@implementation ZCLineChart
+@implementation LineChartModel
 
 +(LCLineChartView *)drawChartViewBeginTime:(NSString *)beginTIme EndTime:(NSString *)endTime Rect:(CGRect)rect Unit:(NSString *)unit XArray:(NSMutableArray *)xArray YArray:(NSMutableArray *)yArray{
     
