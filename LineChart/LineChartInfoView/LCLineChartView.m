@@ -217,27 +217,40 @@
     CGContextSaveGState(c);
     CGContextSetLineWidth(c, 1.0);
     NSUInteger yCnt = [self.ySteps count];
-    for(NSString *step in self.ySteps) {
+    
+    NSArray *height = @[@(196),@(164),@(117),@(70),@(23),@(0)];
+    for(int i = 5; i < self.ySteps.count; i++) {
         [self.axisLabelColor set];
+        NSString *step = [self.ySteps objectAtIndex:i];
         CGFloat h = [self.scaleFont lineHeight];
         CGFloat y = yStart + heightPerStep * (yCnt - 1 - i);
 //        CGFloat x = xStart + heightPerStep * (yCnt - 1 - i);
         // TODO: replace with new text APIs in iOS 7 only version
+        NSLog(@"y %f heighe %f , start %f ycnt %f %ld",y,heightPerStep,yCnt, round(y) + 0.5);
 #pragma clang diagnostic push ==== y 虚线====
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [step drawInRect:CGRectMake(yStart, y - h / 2, self.yAxisLabelsWidth - 6, h) withFont:self.scaleFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
 #pragma clagn diagnostic pop
 
         [kYSHORT_DASH_LINE_COLOR set];
-        CGContextSetLineDash(c, 0, dashedPattern, 2);
-        CGContextMoveToPoint(c, xStart, round(y) + 0.5);
-        CGContextAddLineToPoint(c, self.bounds.size.width - PADDING, round(y) + 0.5);
+//        CGContextSetLineDash(c, 0, dashedPattern, 2);
+        
+        CGContextMoveToPoint(c, xStart, [[height objectAtIndex:i] doubleValue]);
+        CGContextAddLineToPoint(c, self.bounds.size.width - PADDING, [[height objectAtIndex:i] doubleValue]);
         CGContextStrokePath(c);
 
        
         
-        i++;
     }
+    [[UIColor clearColor] set];
+    CGContextSetLineWidth(c, 1.0);//线的宽度
+    UIColor *aColor = [UIColor redColor];//blue蓝色
+    CGContextSetFillColorWithColor(c, aColor.CGColor);//填充颜色
+    //                CGContextSetFillColorSpace(c, <#CGColorSpaceRef  _Nullable space#>)
+    aColor = kXSHORT_DASH_LINE_COLOR;
+    CGContextSetStrokeColorWithColor(c, aColor.CGColor);//线框颜色
+    CGContextAddRect(c,CGRectMake(0 , 0, 100    , 200));//画方框
+    CGContextDrawPath(c, kCGPathFillStroke);//绘画路径
 #pragma mark ==== x 虚线 ===
     NSUInteger xCnt = self.xStepsCount;
     if(xCnt > 1) {
@@ -254,8 +267,25 @@
             
 
         }
+        
+//        if (i % 2 == 0  && i != 0) {
+            NSLog(@"i == %d xc %d",i ,xCnt);
+        
+//        }
+       
+        
     }
 
+    
+
+    
+    
+    
+    [[UIColor blueColor] set];
+    CGContextMoveToPoint(c, 80 , 0);
+    CGContextAddLineToPoint(c, 30 , 40);
+    CGContextStrokePath(c);
+    
     CGContextRestoreGState(c);
 
 
