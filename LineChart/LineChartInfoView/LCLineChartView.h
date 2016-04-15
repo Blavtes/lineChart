@@ -1,10 +1,10 @@
-//
-//  LCLineChartView.h
-//
-//
-//  Created by yong on 16/4/1.
-//  Copyright © 2016年 yong. All rights reserved.
-//
+    //
+    //  LCLineChartView.h
+    //
+    //
+    //  Created by yong on 16/4/1.
+    //  Copyright © 2016年 yong. All rights reserved.
+    //
 
 #import <UIKit/UIKit.h>
 
@@ -14,7 +14,7 @@
 typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 typedef void(^LCLineChartSelectedItem)(LCLineChartData * data, NSUInteger item, CGPoint positionInChart);
 typedef void(^LCLineChartDeselectedItem)();
-
+typedef void(^LCLineChartClick)(void);
 
 @interface LCLineChartDataItem : NSObject
 
@@ -49,9 +49,9 @@ typedef void(^LCLineChartDeselectedItem)();
 
 @property (copy) LCLineChartSelectedItem selectedItemCallback; /// Called whenever a data point is selected
 @property (copy) LCLineChartDeselectedItem deselectedItemCallback; /// Called after a data point is deselected and before the next `selected` callback
+@property (copy) LCLineChartClick clickLineChartCallback;
 
 @property (nonatomic, strong) NSArray *data; /// Array of `LineChartData` objects, one for each line.
-
 @property double yMin;
 @property double yMax;
 @property (strong) NSArray *ySteps; /// Array of step names (NSString). At each step, a scale line is shown.
@@ -64,7 +64,9 @@ typedef void(^LCLineChartDeselectedItem)();
 @property (strong) UIFont *scaleFont; /// Font in which scale markings are drawn. Defaults to [UIFont systemFontOfSize:10].
 @property (nonatomic,strong) UIColor *axisLabelColor;
 
+@property (nonatomic, assign) BOOL drawLinePoints;
+
 - (void)showLegend:(BOOL)show animated:(BOOL)animated;
-//- (void)setSeleCtedCallBack:(LCLineChartSelectedItem) selected;
+    //- (void)setSeleCtedCallBack:(LCLineChartSelectedItem) selected;
 
 @end
