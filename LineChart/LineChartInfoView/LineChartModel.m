@@ -115,15 +115,17 @@ static float const kYOffSet = 0.05f;
 + (void)initYValueArray:(NSMutableArray*)numberArray maxM:(float)maxM minN:(float)minN offSet:(float)offSet
 {
     float a = (maxM - minN) / 4.0f;
-//    [numberArray addObject:[NSString stringWithFormat:@"%.4f",1]];
+    [numberArray addObject:[NSString stringWithFormat:@"%.4f",1]];
 
     [numberArray addObject:[NSString stringWithFormat:@"%.4f",maxM]];
     [numberArray addObject:[NSString stringWithFormat:@"%.4f",minN + 3 * a ]];
     [numberArray addObject:[NSString stringWithFormat:@"%.4f",minN + 2 * a ]];
     [numberArray addObject:[NSString stringWithFormat:@"%.4f",minN + a ]];
     [numberArray addObject:[NSString stringWithFormat:@"%.4f",minN]];
-    [numberArray addObject:[NSString stringWithFormat:@"%.4f",1]];
+//    [numberArray addObject:[NSString stringWithFormat:@"%.4f",1]];
+    [numberArray addObject:[NSString stringWithFormat:@"%.4f",0]];
 
+    
 }
 
 
@@ -153,8 +155,9 @@ static float const kYOffSet = 0.05f;
         CGFloat widthPerStep = availableWidth / (dateArray.count - 1);
         CGFloat xDateLabelOffSet = xStart - 23;
         CGFloat yDateLabelOffSet = 36;
-        
-        UILabel * dateDabel_1 = [[UILabel alloc] initWithFrame:CGRectMake(i * widthPerStep + xDateLabelOffSet, rect.size.height - yDateLabelOffSet, (chartView.frame.size.width / (kTITLELABLE_COUNT +1 )), 21)];
+            //偏移
+        CGFloat offSet = 20;
+        UILabel * dateDabel_1 = [[UILabel alloc] initWithFrame:CGRectMake(i * widthPerStep + xDateLabelOffSet, rect.size.height - yDateLabelOffSet + offSet, (chartView.frame.size.width / (kTITLELABLE_COUNT +1 )), 21)];
         dateDabel_1.backgroundColor = [UIColor clearColor];
         dateDabel_1.font = [UIFont systemFontOfSize:11];
         dateDabel_1.text = [dateArray objectAtIndex:i];

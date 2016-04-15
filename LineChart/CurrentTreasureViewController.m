@@ -83,8 +83,8 @@ static CGFloat const kQiRiViewHeight = 39.5f;
         //
     
     
- NSMutableDictionary *newDict = [[NSMutableDictionary alloc] initWithObjects:@[@[@"2.522",@"2.6522",@"2.8342",@"2.7750",@"2.6815420",@"2.67843",@"2.74314"],@"年化"] forKeys:@[kDATAARRAY_KEY,@"title"]];
-    
+ NSMutableDictionary *newDict = [[NSMutableDictionary alloc] initWithObjects:@[@[@"2.4542",@"2.3522",@"2.6228",@"3.2033",@"3.2539",@"3.56523",@"3.6544"],@"年化"] forKeys:@[kDATAARRAY_KEY,@"title"]];
+// NSMutableDictionary *newDict = [[NSMutableDictionary alloc] initWithObjects:@[@[@"2.6542",@"2.6542",@"2.6542",@"2.6542",@"2.6542",@"2.6542",@"2.6542"],@"年化"] forKeys:@[kDATAARRAY_KEY,@"title"]];
         //    [yArray addObject:dict];
     [yArray addObject:newDict];
     

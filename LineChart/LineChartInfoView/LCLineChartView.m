@@ -202,7 +202,8 @@
     
         //开始位置 为45  最后 少26
         //画线y轴位置
-    NSArray *heightArray =  @[@(0.5),@(20),@(64),@(105),@(150),@(178)];
+//    NSArray *heightArray =  @[@(0.5),@(20),@(64),@(105),@(150),@(178)];
+     NSArray *heightArray =  @[@(0.5),@(20),@(60),@(100),@(140),@(180),@(200)];
         //    NSArray *heightArray =@[@(45),@(65),@(109),@(150),@(195),@(223)];
 #pragma mark ==== x 虚线 ===
     
@@ -282,7 +283,7 @@
     CGContextRef c = UIGraphicsGetCurrentContext();
     CGFloat yStart = PADDING / 2;
     
-    for(int i = 0; i < self.ySteps.count -1;i++) {
+    for(int i = 0; i < self.ySteps.count ;i++) {
         
             //        [self.axisLabelColor set];
         [kYAXIS_COLOR set];
@@ -293,9 +294,12 @@
             // TODO: replace with new text APIs in iOS 7 only version
 #pragma clang diagnostic push ==== y 轴线====  y title
         
-    if ( i != self.ySteps.count - 1  && i != 0) {
+    if ( i != self.ySteps.count -1  && i != 0) {
         if (i < self.ySteps.count) {
             NSString *step = [self.ySteps objectAtIndex:i];
+            if (step.length > 5) {
+                step = [NSString stringWithFormat:@"%@%%" ,[step substringToIndex:4]];
+            }
             if (IOS7) {
                 
                 NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
@@ -440,16 +444,18 @@
 {
     CGFloat yy = yStart;
     CGFloat rectHeight = offSet;
+        //第6条线，不可能比它更低
+    CGFloat endY = [[self.ySteps objectAtIndex:5] floatValue];
+        //第5条线
+    CGFloat lastY = [[self.ySteps objectAtIndex:4] floatValue];
+    
         //第4条线
     CGFloat minY  = [[self.ySteps objectAtIndex:3] floatValue];
-        //第5条线，不可能比它更低
-    CGFloat lastY = [[self.ySteps objectAtIndex:4] floatValue];
-        //第2条线 有可能在它的上面
-    CGFloat maxY  = [[self.ySteps objectAtIndex:1] floatValue];
         //第3条线 中线 附近
     CGFloat middleY = [[self.ySteps objectAtIndex:2] floatValue];
-    
-    NSLog(@"middleY %f da %f",middleY ,dataItem.y);
+        //第2条线 有可能在它的上面
+    CGFloat maxY  = [[self.ySteps objectAtIndex:1] floatValue];
+
         //第一条线
     CGFloat firstY = [[self.ySteps firstObject] floatValue];
     if (dataItem.y > maxY ){ // 第一区
@@ -459,13 +465,13 @@
         yy = -yPerLenth * (dataItem.y - maxY ) / ( firstY - maxY) + [[heightArray objectAtIndex:1] floatValue];
         rectHeight =  10 * (dataItem.y - maxY) / ( firstY - maxY) + [[heightArray objectAtIndex:1] floatValue] - offSet;
         DLog(@"ys2 %f %f dataItem.y - minY %f %f %f %f",yy ,[[heightArray objectAtIndex:1] floatValue],minY - dataItem.y,minY - lastY, dataItem.y ,maxY);
-    } else  if(dataItem.y > middleY && dataItem.y < maxY){// 第2区
+    } else  if(dataItem.y >= middleY && dataItem.y <= maxY){// 第2区
             //第2梯度高度
         CGFloat yPerLenth = [[heightArray objectAtIndex:2] floatValue] - [[heightArray objectAtIndex:1] floatValue];
         yy =   -yPerLenth * (dataItem.y - middleY) / ( maxY - middleY) + [[heightArray objectAtIndex:2] floatValue];
         NSLog(@"33333  %f %f,%f %f",yy,dataItem.y - middleY,maxY - middleY,dataItem.y);
         rectHeight = yStart - offSet;
-    } else if(dataItem.y > minY && dataItem.y < middleY) {// 第3区
+    } else if(dataItem.y >= minY && dataItem.y < middleY) {// 第3区
         
             //第2梯度高度
         CGFloat yPerLenth = [[heightArray objectAtIndex:3] floatValue] - [[heightArray objectAtIndex:2] floatValue];
