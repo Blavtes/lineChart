@@ -156,8 +156,8 @@ static float const kYOffSet = 0.05f;
         CGFloat xDateLabelOffSet = xStart - 23;
         CGFloat yDateLabelOffSet = 36;
             //偏移
-        CGFloat offSet = 20;
-        UILabel * dateDabel_1 = [[UILabel alloc] initWithFrame:CGRectMake(i * widthPerStep + xDateLabelOffSet, rect.size.height - yDateLabelOffSet + offSet, (chartView.frame.size.width / (kTITLELABLE_COUNT +1 )), 21)];
+        
+        UILabel * dateDabel_1 = [[UILabel alloc] initWithFrame:CGRectMake(i * widthPerStep + xDateLabelOffSet, rect.size.height - yDateLabelOffSet, (chartView.frame.size.width / (kTITLELABLE_COUNT +1 )), 21)];
         dateDabel_1.backgroundColor = [UIColor clearColor];
         dateDabel_1.font = [UIFont systemFontOfSize:11];
         dateDabel_1.text = [dateArray objectAtIndex:i];
