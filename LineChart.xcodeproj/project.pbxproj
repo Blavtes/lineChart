@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B84B4671D893ADD00D18AF7 /* YYLChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B84B4661D893ADD00D18AF7 /* YYLChartView.m */; };
 		C1BDA19A1CB367B60054D302 /* LCInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BDA1901CB367B60054D302 /* LCInfoView.m */; };
 		C1BDA19B1CB367B60054D302 /* LCLegendView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BDA1921CB367B60054D302 /* LCLegendView.m */; };
 		C1BDA19C1CB367B60054D302 /* LCLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BDA1941CB367B60054D302 /* LCLineChartView.m */; };
@@ -21,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B84B4651D893ADD00D18AF7 /* YYLChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYLChartView.h; sourceTree = "<group>"; };
+		1B84B4661D893ADD00D18AF7 /* YYLChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYLChartView.m; sourceTree = "<group>"; };
 		857263785AF2B906ED0576A7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BDA18F1CB367B60054D302 /* LCInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCInfoView.h; sourceTree = "<group>"; };
 		C1BDA1901CB367B60054D302 /* LCInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCInfoView.m; sourceTree = "<group>"; };
@@ -100,6 +103,8 @@
 				D4A5C8E61C86D18E00BB5129 /* AppDelegate.m */,
 				D4A5C8E81C86D18E00BB5129 /* CurrentTreasureViewController.h */,
 				D4A5C8E91C86D18E00BB5129 /* CurrentTreasureViewController.m */,
+				1B84B4651D893ADD00D18AF7 /* YYLChartView.h */,
+				1B84B4661D893ADD00D18AF7 /* YYLChartView.m */,
 				D4A5C8FF1C86DC8800BB5129 /* UIColor+Random.h */,
 				D4A5C8FE1C86DC8800BB5129 /* UIColor+Random.m */,
 				D4A5C8EE1C86D18E00BB5129 /* Assets.xcassets */,
@@ -251,6 +256,7 @@
 				C1BDA19C1CB367B60054D302 /* LCLineChartView.m in Sources */,
 				D4A5C9001C86DC8800BB5129 /* UIColor+Random.m in Sources */,
 				C1BDA19A1CB367B60054D302 /* LCInfoView.m in Sources */,
+				1B84B4671D893ADD00D18AF7 /* YYLChartView.m in Sources */,
 				D4A5C8EA1C86D18E00BB5129 /* CurrentTreasureViewController.m in Sources */,
 				D4A5C8E71C86D18E00BB5129 /* AppDelegate.m in Sources */,
 				C1BDA19E1CB367B60054D302 /* UIKit+DrawingHelpers.m in Sources */,

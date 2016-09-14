@@ -1,0 +1,20 @@
+From ca5d4a285b1fcb2ff722b0375497316c984c32c8 Mon Sep 17 00:00:00 2001
+From: yangyong <yy@yangyongdeMacBook-Pro.local>
+Date: Mon, 23 May 2016 17:36:58 +0800
+Subject: [PATCH] itext
+
+---
+ LineChart/1.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 LineChart/1.txt
+
+diff --git a/LineChart/1.txt b/LineChart/1.txt
+new file mode 100644
+index 0000000..1b7ae83
+--- /dev/null
++++ b/LineChart/1.txt
+@@ -0,0 +1 @@
++qqq
+-- 
+2.7.4 (Apple Git-66)
+

@@ -14,6 +14,7 @@
 //#import "UIView+Extension.h"
 #import "LineChartModel.h"
 #import "LineChart.h"
+#import "YYLChartView.h"
 
 static CGFloat const kCurrentTreTopViewHeight = 98.5f;
 static CGFloat const kHorizontalSpaceWidth = 15.0f;
@@ -49,10 +50,11 @@ static CGFloat const kQiRiViewHeight = 39.5f;
 - (void)viewDidLoad {
     [super viewDidLoad];
         // Do any additional setup after loading the view, typically from a nib.
-    self.title = @"前海海盈货币A";
+//    self.title = @"前海海盈货币A";
     self.view.backgroundColor = COMMON_GREY_WHITE_COLOR;
     
-    
+    YYLChartView *v = [[YYLChartView alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 213 + 40)];
+    [self.view addSubview:v];
     [self initLineChartView];
     
         //    [self requestData];
@@ -112,7 +114,7 @@ static CGFloat const kQiRiViewHeight = 39.5f;
     }
     
     UIView *riqiView = [[UIView alloc] initWithFrame:CGRectMake(0, riqiViewYOffSet, MAIN_SCREEN_WIDTH, kQiRiViewHeight)];
-    riqiView.backgroundColor = COMMON_WHITE_COLOR;
+    riqiView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:riqiView];
     
     
@@ -122,7 +124,7 @@ static CGFloat const kQiRiViewHeight = 39.5f;
     }
     _chartBgView = [[UIView alloc] initWithFrame:CGRectMake(0,chartBgViewYOffSet, MAIN_SCREEN_WIDTH, kChartViewHeight)];
     
-    _chartBgView.backgroundColor = COMMON_GREEN_COLOR;
+    _chartBgView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_chartBgView];
     
     _lineChartView = [LineChartModel drawChartViewBeginTime:startDate EndTime:endDate Rect:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, kChartViewHeight ) Unit:@"%" XArray:xArray YArray:yArray];
@@ -133,7 +135,7 @@ static CGFloat const kQiRiViewHeight = 39.5f;
             //        UIViewController *curVc = [[NSClassFromString(@"MyAnnualizedViewController") alloc] initWithEarningsType:MyQiRiAnnualizedType];
             //        [weakSelf.navigationController pushViewController:curVc animated:YES];
     };
-    _lineChartView.backgroundColor = COMMON_WHITE_COLOR;
+    _lineChartView.backgroundColor = [UIColor clearColor];
     _lineChartView.clipsToBounds = NO;
         //    _lineChartView.drawLinePoints = NO;
     [_chartBgView addSubview:_lineChartView];

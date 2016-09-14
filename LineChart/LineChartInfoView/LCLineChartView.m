@@ -80,17 +80,17 @@
 @synthesize data = _data;
 
 - (void)setDefaultValues {
-    self.currentPosView = [[UIView alloc] initWithFrame:CGRectMake(PADDING, PADDING, 1 / self.contentScaleFactor, 50)];
-    self.currentPosView.backgroundColor = [UIColor colorWithRed:0.7 green:0.0 blue:0.0 alpha:1.0];
-    self.currentPosView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.currentPosView.alpha = 0.0;
-    [self addSubview:self.currentPosView];
-    
-    self.legendView = [[LCLegendView alloc] init];
-    self.legendView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin ;
-    self.legendView.backgroundColor = [UIColor clearColor];
-    self.legendView.hidden = KLEGENDVIEW_HIDDEN;
-    [self addSubview:self.legendView];
+//    self.currentPosView = [[UIView alloc] initWithFrame:CGRectMake(PADDING, PADDING, 1 / self.contentScaleFactor, 50)];
+//    self.currentPosView.backgroundColor = [UIColor colorWithRed:0.7 green:0.0 blue:0.0 alpha:1.0];
+//    self.currentPosView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//    self.currentPosView.alpha = 0.0;
+//    [self addSubview:self.currentPosView];
+//    
+//    self.legendView = [[LCLegendView alloc] init];
+//    self.legendView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin ;
+//    self.legendView.backgroundColor = [UIColor clearColor];
+//    self.legendView.hidden = KLEGENDVIEW_HIDDEN;
+//    [self addSubview:self.legendView];
     
     self.axisLabelColor = kYAXIS_COLOR;
     
@@ -103,7 +103,7 @@
     self.xAxisLabel.backgroundColor = [UIColor clearColor];
     [self addSubview:self.xAxisLabel];
     
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor clearColor];
     self.scaleFont = [UIFont systemFontOfSize:10.0];
     
     self.autoresizesSubviews = YES;
@@ -115,6 +115,19 @@
     self.selectedIdx = INT_MAX;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clikView:)];
     [self addGestureRecognizer:tap];
+    
+//    NSArray *heightArray =  @[@(36),@(53),@(82),@(112),@(142),@(172),@(186)];
+//    NSArray *heightArray =  @[@(0.5),@(20),@(55),@(90),@(125),@(160),@(178)];
+//
+//    
+//    [self drawXAxisAndFillRectWithYCoordinate:heightArray];
+//    
+//    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:1];
+//    [self initYValueArray:arr maxM:4 minN:2.07 offSet:0];
+//    [self initYTitle:arr heightArr:heightArray];
+//    
+//    NSArray *timeArr = @[@"03-10",@"03-11",@"03-13",@"03-15",@"04-10",@"05-12",@"05-18"];
+//    [self initXTitle:timeArr heightArr:heightArray];
 }
 
 - (void)clikView:(UITapGestureRecognizer*)tap
@@ -207,21 +220,21 @@
         //    NSArray *heightArray =@[@(45),@(65),@(109),@(150),@(195),@(223)];
 #pragma mark ==== x 虚线 ===
     
-    [self drawXAxisAndFillRectWithYCoordinate:heightArray];
-        //--- xy -- background
-    [self drawYAxisAndYTitleWithYCoordinate:heightArray];
-        //重置画布
-    
-    
-    if (!self.drawsAnyData) {
-        DLog(@"You configured LineChartView to draw neither lines nor data points. No data will be visible. This is most likely not what you wanted. (But we aren't judging you, so here's your chart background.)");
-    } // warn if no data will be drawn
-    
-#pragma mark === 画线===
-        //检查是否有数据，无数据不划线
-    if (!_drawLinePoints) {
-        return;
-    }
+//    [self drawXAxisAndFillRectWithYCoordinate:heightArray];
+//        //--- xy -- background
+//    [self drawYAxisAndYTitleWithYCoordinate:heightArray];
+//        //重置画布
+//    
+//    
+//    if (!self.drawsAnyData) {
+//        DLog(@"You configured LineChartView to draw neither lines nor data points. No data will be visible. This is most likely not what you wanted. (But we aren't judging you, so here's your chart background.)");
+//    } // warn if no data will be drawn
+//    
+//#pragma mark === 画线===
+//        //检查是否有数据，无数据不划线
+//    if (!_drawLinePoints) {
+//        return;
+//    }
     
     [self drawPointAndLinesWithYCoordinate:heightArray];
 }
@@ -233,44 +246,180 @@
  */
 - (void)drawXAxisAndFillRectWithYCoordinate:(NSArray*)heightArray
 {
-    CGContextRef c = UIGraphicsGetCurrentContext();
+    int xCnt = 7;
+    CGFloat xStart = 55;
     
-    CGContextSaveGState(c);
-    CGContextSetLineWidth(c, 1.0);
-    
-    NSUInteger xCnt = self.xStepsCount;
-    CGFloat xStart = kDesign_xOffSet;
     CGFloat availableWidth = self.bounds.size.width - xStart - 20;
-    
     if(xCnt > 1) {
         CGFloat widthPerStep = availableWidth / (xCnt - 1);
         
-        [[UIColor grayColor] set];
-        for(NSUInteger i = 0; i < xCnt; ++i) {
+        for(int i = 0; i < xCnt; i++) {
+            xStart = 55;
             CGFloat x = xStart + widthPerStep * (xCnt - 1 - i);
             
             /*画矩形*/
                 //矩形，并填弃颜色
+            
+            if (i == 0 || i == (xCnt - 1)) {
+                xStart = 0;
+                availableWidth = self.bounds.size.width;
+            }
             if (i % 2 == 0  && i != 0) {
-                    //                NSLog(@"i == %d xc %d",i ,xCnt);
-                CGContextSetLineWidth(c, 1.0);//线的宽度
-                UIColor *aColor = kRECT_BLUE_COLOR;//blue蓝色
-                CGContextSetFillColorWithColor(c, aColor.CGColor);//填充颜色
-                
-                aColor = kXSHORT_DASH_LINE_COLOR;
-                CGContextSetStrokeColorWithColor(c, aColor.CGColor);//线框颜色
-                CGContextAddRect(c,CGRectMake(round(x) , 0, widthPerStep, [[heightArray lastObject] floatValue]));//画方框
-                CGContextDrawPath(c, kCGPathFillStroke);//绘画路径
+                UIView *v = [[UIView alloc] initWithFrame:CGRectMake(x, [[heightArray firstObject] floatValue], widthPerStep, [[heightArray lastObject] floatValue] - [[heightArray firstObject] floatValue])];
+                v.backgroundColor = UIColorFromRGBHex(0xf7fdff);
+                [self addSubview:v];
+                [self sendSubviewToBack:v];
+
+            }
+        }
+        
+        for(int i = 0; i < xCnt; i++) {
+            xStart = 55;
+            CGFloat x = xStart + widthPerStep * (xCnt - 1 - i);
+            
+            /*画矩形*/
+                //矩形，并填弃颜色
+            
+            if (i == 0 || i == (xCnt - 1)) {
+                xStart = 0;
+                availableWidth = self.bounds.size.width;
             }
             
-            [kXSHORT_DASH_LINE_COLOR set];
-            CGContextMoveToPoint(c, round(x) , 0);
-            CGContextAddLineToPoint(c, round(x) , [[heightArray lastObject] floatValue]);
-            CGContextStrokePath(c);
+            NSLog(@"x %f a %f",xStart,availableWidth);
+            UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(xStart, [[heightArray objectAtIndex:i] floatValue], availableWidth, 1)];
+            line.backgroundColor = [UIColor grayColor];
+            [self addSubview:line];
+            [self sendSubviewToBack:line];
+
+            UILabel *lineY = [[UILabel alloc] initWithFrame:CGRectMake(x, [[heightArray firstObject] floatValue], 1, [[heightArray lastObject] floatValue] - [[heightArray firstObject] floatValue])];
+            lineY.backgroundColor = [UIColor grayColor];
+            [self addSubview:lineY];
+            [self sendSubviewToBack:lineY];
+
             
         }
+        
+    }
+    
+}
+/**
+ *  Y标题
+ *
+ *  @param arr
+ *  @param height
+ */
+- (void)initYTitle:(NSMutableArray *)arr heightArr:(NSArray *)height
+{
+    CGFloat lHeight = 30;
+    for (int i = 1; i < arr.count - 1; i ++) {
+        UILabel *la = [[UILabel alloc] initWithFrame:CGRectMake(0, [[height objectAtIndex:i] floatValue] - lHeight / 2, 55, lHeight)];
+        la.font = [UIFont systemFontOfSize:10];
+        la.text = [arr objectAtIndex:i];
+        la.textAlignment = NSTextAlignmentCenter;
+        la.textColor = [UIColor grayColor];
+        [self addSubview:la];
+         [self sendSubviewToBack:la];
     }
 }
+
+/**
+ *  x 标题
+ *
+ *  @param arr
+ *  @param height
+ */
+- (void)initXTitle:(NSArray *)arr heightArr:(NSArray *)height
+{
+    for (int i = 0; i < arr.count; i++) {
+        CGFloat xStart = 55;
+        
+        CGFloat  availableWidth = self.frame.size.width - xStart - 20;
+        
+        
+        CGFloat widthPerStep = availableWidth / (arr.count - 1);
+        CGFloat xDateLabelOffSet = xStart - 23;
+        CGFloat yDateLabelOffSet = 66;
+            //偏移
+        
+        UILabel * dateDabel_1 = [[UILabel alloc] initWithFrame:CGRectMake(i * widthPerStep + xDateLabelOffSet, self.frame.size.height - yDateLabelOffSet, (self.frame.size.width / (kTITLELABLE_COUNT)), 21)];
+        dateDabel_1.backgroundColor = [UIColor clearColor];
+        dateDabel_1.font = [UIFont systemFontOfSize:11];
+        dateDabel_1.text = [arr objectAtIndex:i];
+        dateDabel_1.textAlignment = NSTextAlignmentCenter;
+        dateDabel_1.textColor = [UIColor grayColor];
+        [self addSubview:dateDabel_1];
+        [self sendSubviewToBack:dateDabel_1];
+    }
+}
+/**
+ *  获取y轴刻度数据
+ *
+ *  @param numberArray y值分刻度数据
+ *  @param maxM        y 值中最大值
+ *  @param minN        y 值中最小值
+ *  @param offSet      数据偏移
+ */
+
+- (void)initYValueArray:(NSMutableArray*)numberArray maxM:(float)maxM minN:(float)minN offSet:(float)offSet
+{
+    float a = (maxM - minN) / 4.0f;
+    [numberArray addObject:[NSString stringWithFormat:@"%.4f",1]];
+    
+    [numberArray addObject:[NSString stringWithFormat:@"%.4f",maxM]];
+    [numberArray addObject:[NSString stringWithFormat:@"%.4f",minN + 3 * a ]];
+    [numberArray addObject:[NSString stringWithFormat:@"%.4f",minN + 2 * a ]];
+    [numberArray addObject:[NSString stringWithFormat:@"%.4f",minN + a ]];
+    [numberArray addObject:[NSString stringWithFormat:@"%.4f",minN]];
+        //    [numberArray addObject:[NSString stringWithFormat:@"%.4f",1]];
+    [numberArray addObject:[NSString stringWithFormat:@"%.4f",0]];
+}
+
+
+/**
+ *  画x轴线 和 填充背景矩形
+ *
+ *  @param heightArray y轴数值
+ */
+//- (void)drawXAxisAndFillRectWithYCoordinate:(NSArray*)heightArray
+//{
+//    CGContextRef c = UIGraphicsGetCurrentContext();
+//    
+//    CGContextSaveGState(c);
+//    CGContextSetLineWidth(c, 1.0);
+//    
+//    NSUInteger xCnt = self.xStepsCount;
+//    CGFloat xStart = kDesign_xOffSet;
+//    CGFloat availableWidth = self.bounds.size.width - xStart - 20;
+//    
+//    if(xCnt > 1) {
+//        CGFloat widthPerStep = availableWidth / (xCnt - 1);
+//        
+//        [[UIColor grayColor] set];
+//        for(NSUInteger i = 0; i < xCnt; ++i) {
+//            CGFloat x = xStart + widthPerStep * (xCnt - 1 - i);
+//            
+//            /*画矩形*/
+//                //矩形，并填弃颜色
+//            if (i % 2 == 0  && i != 0) {
+//                    //                NSLog(@"i == %d xc %d",i ,xCnt);
+//                CGContextSetLineWidth(c, 1.0);//线的宽度
+//                UIColor *aColor = kRECT_BLUE_COLOR;//blue蓝色
+//                CGContextSetFillColorWithColor(c, aColor.CGColor);//填充颜色
+//                
+//                aColor = kXSHORT_DASH_LINE_COLOR;
+//                CGContextSetStrokeColorWithColor(c, aColor.CGColor);//线框颜色
+//                CGContextAddRect(c,CGRectMake(round(x) , 0, widthPerStep, [[heightArray lastObject] floatValue]));//画方框
+//                CGContextDrawPath(c, kCGPathFillStroke);//绘画路径
+//            }
+//            
+//            [kXSHORT_DASH_LINE_COLOR set];
+//            CGContextMoveToPoint(c, round(x) , 0);
+//            CGContextAddLineToPoint(c, round(x) , [[heightArray lastObject] floatValue]);
+//            CGContextStrokePath(c);
+//            
+//        }
+//    }
+//}
 
 
 /**
